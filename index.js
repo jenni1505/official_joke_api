@@ -10,25 +10,12 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   next();
 });
-
-app.get('/', (req, res) => {
-  res.send('Try /random_joke, /random_ten, /jokes/random, or /jokes/ten , /jokes/random/<any-number>');
+app.get('/', (_req, res) => {
+  res.type('text').send('Official Joke API — customized for SeAMK ✅');
 });
 
 app.get('/ping', (req, res) => {
   res.send('pong');
-});
-
-app.get('/random_joke', (req, res) => {
-  res.json(randomJoke());
-});
-
-app.get('/random_ten', (req, res) => {
-  res.json(randomTen());
-});
-
-app.get('/jokes/random', (req, res) => {
-  res.json(randomJoke());
 });
 
 app.get("/jokes/random/:num", (req, res) => {
@@ -82,6 +69,12 @@ app.use((err, req, res, next) => {
   res.status(statusCode).json({
     type: 'error', message: err.message
   });
+});
+
+const jokes = require('./jokes/index.json');
+
+app.get('/jokes/count', (_req, res) => {
+  res.json({ count: jokes.length });
 });
 
 const PORT = process.env.PORT || 3005;
