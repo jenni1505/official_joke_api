@@ -77,6 +77,6 @@ app.use((err, req, res, next) => {
     type: 'error', message: err.message
   });
 });
-const PORT = process.env.PORT || 3005;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
 
