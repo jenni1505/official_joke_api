@@ -63,6 +63,13 @@ app.get('/types', (req, res, next) => {
   res.json(types);
 })
 
+
+
+const jokes = require('./jokes/index.json');
+app.get('/jokes/count', (_req, res) => {
+  res.json({ count: jokes.length });
+});
+
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
 
@@ -70,13 +77,6 @@ app.use((err, req, res, next) => {
     type: 'error', message: err.message
   });
 });
-
-const jokes = require('./jokes/index.json');
-
-app.get('/jokes/count', (_req, res) => {
-  res.json({ count: jokes.length });
-});
-
 const PORT = process.env.PORT || 3005;
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
 
